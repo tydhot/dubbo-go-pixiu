@@ -37,6 +37,7 @@ const (
 	HTTPCorsFilter         = "dgp.filter.http.cors"
 	HTTPCsrfFilter         = "dgp.filter.http.csrf"
 	HTTPProxyRewriteFilter = "dgp.filter.http.proxyrewrite"
+	HTTPEventFilter        = "dgp.filter.http.event"
 )
 
 const (
@@ -51,6 +52,11 @@ const (
 	LogLevelKey      = "log-level"
 	LimitCpusKey     = "limit-cpus"
 	LogFormatKey     = "log-format"
+)
+
+const (
+	MQTypeKafka    = "kafka"
+	MQTypeRocketMQ = "rocketmq"
 )
 
 const (
