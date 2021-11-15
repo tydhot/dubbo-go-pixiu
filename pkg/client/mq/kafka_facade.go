@@ -92,15 +92,15 @@ func (f *KafkaConsumerFacade) consumeLoop(ctx context.Context, topics []string, 
 	for {
 		select {
 		case <-f.done:
-			logger.Info()
+			logger.Info("shutdown the consume loop")
 			break
 		}
 		if err := f.consumerGroup.Consume(ctx, topics, handler); err != nil {
-			logger.Warn()
+			logger.Warn("failed to consume the msg from kafka, %s", err.Error())
 		}
 		if ctx.Err() != nil {
 			// log consume stop
-			logger.Error()
+			logger.Error("shutdown the consume loop due to %s", ctx.Err().Error())
 			break
 		}
 	}
@@ -143,7 +143,7 @@ func (c *consumerGroupHandler) ConsumeClaim(session sarama.ConsumerGroupSession,
 			if resp.StatusCode == http.StatusOK {
 				return nil
 			}
-			return perrors.New("failed send msg to consumer with status code " + strconv.Itoa(resp.StatusCode))
+			return perrors.New("failed send msg to consumer")
 		}()
 		if err != nil {
 			logger.Warn(err.Error())
